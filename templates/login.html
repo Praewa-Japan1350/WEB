@@ -1,17 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="card">
-    <h2>Login</h2>
+<div class="login-wrapper">
+    <div class="login-card">
+        <h1>Login</h1>
 
-<form method="POST">
-    <input name="username" placeholder="Username" class="form-control mb-2">
-    <input name="password" type="password" placeholder="Password" class="form-control mb-2">
-    <button class="btn btn-primary">Login</button>
-</form>
+        <form method="POST">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Enter your email" required>
 
-    <button class="social-btn">Continue with Google</button>
-    <button class="social-btn">Continue with Apple</button>
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter your password" required>
+
+            <div class="remember">
+                <input type="checkbox"> Remember Me
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p class="register">
+            Don't have an account? <a href="#">Register here</a>
+        </p>
+    </div>
+
+    <div class="info-card">
+        <h2>Student Assignment Tracker</h2>
+        <p>
+            See all of your assignments and deadlines in one place.
+            Manage tasks efficiently and never miss a submission.
+        </p>
+    </div>
 </div>
 
 {% endblock %}

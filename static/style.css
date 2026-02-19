@@ -1,75 +1,136 @@
-body {
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #4e73df, #1cc88a);
-    min-height: 100vh;
 }
 
-.navbar {
+body {
+    background: #f3f6fb;
+}
+
+/* Layout */
+.layout {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
+    height: 100vh;
 }
 
-.navbar a {
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #2b3a67, #1e2a4f);
     color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    font-weight: 500;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .logo {
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.container {
+.circle {
+    width: 45px;
+    height: 45px;
+    background: #4f6edb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.menu {
+    list-style: none;
+    margin-top: 40px;
+}
+
+.menu li {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.menu li.active,
+.menu li:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.logout {
+    opacity: 0.8;
+}
+
+/* Content */
+.content {
+    flex: 1;
     padding: 40px;
 }
 
-.card {
+/* Login */
+.login-wrapper {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.login-card, .info-card {
     background: white;
     padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    max-width: 400px;
-    margin: 60px auto;
+    border-radius: 16px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-.card h2 {
-    text-align: center;
-    margin-bottom: 20px;
+.login-card h1 {
+    margin-bottom: 25px;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+.login-card label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
-button {
+.login-card input[type="email"],
+.login-card input[type="password"] {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.remember {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-card button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #4f6edb, #6b8cff);
     border: none;
-    background: #4e73df;
+    border-radius: 8px;
     color: white;
     font-weight: bold;
     cursor: pointer;
 }
 
-button:hover {
-    background: #2e59d9;
+.login-card button:hover {
+    opacity: 0.9;
 }
 
-.social-btn {
-    margin-top: 10px;
-    background: #f8f9fc;
-    color: #333;
+.register {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.info-card h2 {
+    margin-bottom: 15px;
 }
