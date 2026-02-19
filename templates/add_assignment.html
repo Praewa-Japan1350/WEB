@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Add Assignment</h2>
+<form method="POST">
+<input name="title" placeholder="Title" class="form-control mb-2">
+<textarea name="description" placeholder="Description" class="form-control mb-2"></textarea>
+<select name="status" class="form-control mb-2">
+<option>Pending</option>
+<option>Doing</option>
+<option>Done</option>
+</select>
+<button class="btn btn-success">Save</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Calendar</h2>
+<div id="calendar"></div>
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: [
+            {% for a in assignments %}
+            {
+                title: "{{ a.title }}",
+                start: "{{ a.due_date.strftime('%Y-%m-%d') }}"
+            },
+            {% endfor %}
+        ]
+    });
+    calendar.render();
+});
+</script>
+{% endblock %}

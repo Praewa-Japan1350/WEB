@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+    <h2>Login</h2>
+
+<form method="POST">
+    <input name="username" placeholder="Username" class="form-control mb-2">
+    <input name="password" type="password" placeholder="Password" class="form-control mb-2">
+    <button class="btn btn-primary">Login</button>
+</form>
+
+    <button class="social-btn">Continue with Google</button>
+    <button class="social-btn">Continue with Apple</button>
+</div>
+
+{% endblock %}
