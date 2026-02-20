@@ -97,8 +97,7 @@ body {
     margin-bottom: 5px;
 }
 
-.login-card input[type="email"],
-.login-card input[type="password"] {
+.login-card input {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
