@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask import flash
 
 app = Flask(__name__)
@@ -10,6 +10,14 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        # ตัวอย่างตรวจสอบแบบง่าย
+        if username == "admin" and password == "1234":
+            session["user"] = username
+            return redirect(url_for("dashboard"))
     return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -41,10 +49,8 @@ def reset_password():
         confirm_password = request.form["confirm_password"]
 
         if new_password != confirm_password:
-            flash("Passwords do not match.")
             return render_template("reset_password.html")
 
-        flash("Password changed successfully! Please login.")
         return redirect("/login")
 
     return render_template("reset_password.html")
@@ -56,6 +62,12 @@ def forgot_password():
         return redirect(url_for("reset_password"))
 
     return render_template("forgot_password.html")
+
+@app.route("/dashboard")
+def dashboard():
+    if "user" not in session:
+        return redirect(url_for("login"))
+    return render_template("dashboard.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
