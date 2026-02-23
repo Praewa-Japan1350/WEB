@@ -1,8 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask import flash
 
 app = Flask(__name__)
+app.secret_key = "secret123"
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
+def index():
+    return redirect(url_for("login"))
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
     return render_template("login.html")
 
@@ -27,6 +33,29 @@ def register():
             return redirect(url_for("login"))
 
     return render_template("register.html", error=error)
+
+@app.route("/reset-password", methods=["GET", "POST"])
+def reset_password():
+    if request.method == "POST":
+        new_password = request.form["new_password"]
+        confirm_password = request.form["confirm_password"]
+
+        if new_password != confirm_password:
+            flash("Passwords do not match.")
+            return render_template("reset_password.html")
+
+        flash("Password changed successfully! Please login.")
+        return redirect("/login")
+
+    return render_template("reset_password.html")
+
+@app.route("/forgot_password", methods=["GET", "POST"])
+def forgot_password():
+    if request.method == "POST":
+        email = request.form["email"]
+        return redirect(url_for("reset_password"))
+
+    return render_template("forgot_password.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
