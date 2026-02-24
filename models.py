@@ -1,34 +1,28 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from database import Base
+from flask_sqlalchemy import SQLAlchemy
 
-class CafeItem(Base):
-    __tablename__ = 'cafe_items'
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    price = Column(Integer, nullable=False)
-    description = Column(String)
-    
-class Customer(Base):
-    __tablename__ = 'customers'
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    email = Column(String, unique=True, nullable=False)
-    phone = Column(String)
+# Initialize SQLAlchemy
 
-class Order(Base):
-    __tablename__ = 'orders'
-    id = Column(Integer, primary_key=True)
-    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
-    total_amount = Column(Integer, nullable=False)
-    customer = relationship('Customer', back_populates='orders')
-    items = relationship('OrderItem', back_populates='order')
+db = SQLAlchemy()
 
-class OrderItem(Base):
-    __tablename__ = 'order_items'
-    id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
-    cafe_item_id = Column(Integer, ForeignKey('cafe_items.id'), nullable=False)
-    quantity = Column(Integer, nullable=False)
-    order = relationship('Order', back_populates='items')
-    cafe_item = relationship('CafeItem')
+class CafeItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.String(255), nullable=True)
+
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    total_price = db.Column(db.Float, nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+class OrderItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
+    cafe_item_id = db.Column(db.Integer, db.ForeignKey('cafe_item.id'), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
