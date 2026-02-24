@@ -1,23 +1,34 @@
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+from database import Base
 
-db = SQLAlchemy()
+class CafeItem(Base):
+    __tablename__ = 'cafe_items'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    price = Column(Integer, nullable=False)
+    description = Column(String)
+    
+class Customer(Base):
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    phone = Column(String)
 
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True)
-    password_hash = db.Column(db.String(200))
+class Order(Base):
+    __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True)
+    customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
+    total_amount = Column(Integer, nullable=False)
+    customer = relationship('Customer', back_populates='orders')
+    items = relationship('OrderItem', back_populates='order')
 
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-class Assignment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
-    subject = db.Column(db.String(100))
-    due_date = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+class OrderItem(Base):
+    __tablename__ = 'order_items'
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
+    cafe_item_id = Column(Integer, ForeignKey('cafe_items.id'), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    order = relationship('Order', back_populates='items')
+    cafe_item = relationship('CafeItem')
