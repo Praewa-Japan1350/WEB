@@ -1,29 +1,50 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h2>Your Assignments</h2>
-<a href="/add" class="btn btn-primary mb-3">Add Assignment</a>
+<h2>Dashboard</h2>
 
-<table class="table">
-<tr>
-<th>Title</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
+<p>Welcome, {{ user }}</p>
 
-{% for a in assignments %}
-<tr>
-<td>{{ a.title }}</td>
-<td>
-<span class="badge bg-warning">{{ a.status }}</span>
-</td>
-<td>
-<a href="/edit/{{a.id}}" class="btn btn-sm btn-info">Edit</a>
-<a href="/delete/{{a.id}}" class="btn btn-sm btn-danger">Delete</a>
-</td>
-</tr>
-{% endfor %}
+<div style="display:flex; gap:20px; margin-bottom:20px;">
+    <div style="background:#3b82f6; color:white; padding:20px; border-radius:8px;">
+        Total: {{ total }}
+    </div>
+    <div style="background:#f59e0b; color:white; padding:20px; border-radius:8px;">
+        Pending: {{ pending }}
+    </div>
+    <div style="background:#f97316; color:white; padding:20px; border-radius:8px;">
+        Doing: {{ doing }}
+    </div>
+    <div style="background:#10b981; color:white; padding:20px; border-radius:8px;">
+        Completed: {{ completed }}
+    </div>
+</div>
 
+<table width="100%" bgcolor="white" cellpadding="10">
+    <tr>
+        <th>Title</th>
+        <th>Subject</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for a in assignments %}
+    <tr>
+        <td>{{ a[1] }}</td>
+        <td>{{ a[2] }}</td>
+        <td>{{ a[3] }}</td>
+        <td>{{ a[4] }}</td>
+        <td>
+            <a href="{{ url_for('edit', id=a[0]) }}">Edit</a> |
+            <a href="{{ url_for('delete', id=a[0]) }}"
+               onclick="return confirm('Delete?')">
+               Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
 </table>
 
 {% endblock %}

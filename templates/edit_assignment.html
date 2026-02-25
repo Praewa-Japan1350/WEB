@@ -1,16 +1,21 @@
 {% extends "base.html" %}
+
 {% block content %}
 
 <h2>Edit Assignment</h2>
+
 <form method="POST">
-<input name="title" value="{{assignment.title}}" class="form-control mb-2">
-<textarea name="description" class="form-control mb-2">{{assignment.description}}</textarea>
-<select name="status" class="form-control mb-2">
-<option {% if assignment.status=='Pending' %}selected{% endif %}>Pending</option>
-<option {% if assignment.status=='Doing' %}selected{% endif %}>Doing</option>
-<option {% if assignment.status=='Done' %}selected{% endif %}>Done</option>
-</select>
-<button class="btn btn-primary">Update</button>
+    <input type="text" name="title" value="{{ assignment[1] }}" required><br><br>
+    <input type="text" name="subject" value="{{ assignment[2] }}" required><br><br>
+    <input type="date" name="due_date" value="{{ assignment[3] }}" required><br><br>
+
+    <select name="status">
+        <option value="Pending" {% if assignment[4]=='Pending' %}selected{% endif %}>Pending</option>
+        <option value="Doing" {% if assignment[4]=='Doing' %}selected{% endif %}>Doing</option>
+        <option value="Completed" {% if assignment[4]=='Completed' %}selected{% endif %}>Completed</option>
+    </select><br><br>
+
+    <button type="submit">Update</button>
 </form>
 
 {% endblock %}
