@@ -21,30 +21,61 @@
     </div>
 </div>
 
-<table width="100%" bgcolor="white" cellpadding="10">
-    <tr>
-        <th>Title</th>
-        <th>Subject</th>
-        <th>Due Date</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
+<h2>Your Assignments</h2>
 
-    {% for a in assignments %}
-    <tr>
-        <td>{{ a[1] }}</td>
-        <td>{{ a[2] }}</td>
-        <td>{{ a[3] }}</td>
-        <td>{{ a[4] }}</td>
-        <td>
-            <a href="{{ url_for('edit', id=a[0]) }}">Edit</a> |
-            <a href="{{ url_for('delete', id=a[0]) }}"
-               onclick="return confirm('Delete?')">
-               Delete
-            </a>
-        </td>
-    </tr>
-    {% endfor %}
+<table class="assignment-table">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" onclick="checkAll(this)">
+            </th>
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for a in assignments %}
+        <tr>
+            <td>
+                <input type="checkbox" class="rowCheck">
+            </td>
+
+            <td>{{ a[1] }}</td>
+            <td>{{ a[2] }}</td>
+            <td>{{ a[3] }}</td>
+
+            <td>
+                <span class="status {{ a[4]|lower }}">
+                    {{ a[4] }}
+                </span>
+            </td>
+
+            <td>
+                <a href="{{ url_for('edit', id=a[0]) }}">✏ Edit</a>
+                |
+                <a href="{{ url_for('delete', id=a[0]) }}"
+                   onclick="return confirm('Delete assignment?')">
+                   🗑 Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
+
+<script>
+function checkAll(source){
+    let checkboxes =
+        document.querySelectorAll(".rowCheck");
+
+    checkboxes.forEach(cb =>
+        cb.checked = source.checked
+    );
+}
+</script>
 
 {% endblock %}

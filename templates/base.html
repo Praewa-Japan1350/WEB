@@ -14,23 +14,23 @@
         </div>
 
         <ul class="menu">
-            <li class="{% if request.path == '/' %}active{% endif %}">
+            <li>
                 <a href="{{ url_for('dashboard') }}">Home</a>
             </li>
 
-            <li class="{% if request.path == '/dashboard' %}active{% endif %}">
+             <li>
                 <a href="{{ url_for('dashboard') }}">Dashboard</a>
             </li>
 
-            <li>
+             <li class="disabled">
                 <a href="#">Subjects</a>
             </li>
 
-            <li>
+            <li class="disabled">
                 <a href="#">Profile</a>
             </li>
 
-            <li>
+            <li class="disabled">
                 <a href="#">About</a>
             </li>
         </ul>
