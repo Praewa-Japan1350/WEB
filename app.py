@@ -1,8 +1,7 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
 
-# ข้อมูลตัวอย่างสำหรับแสดงในหน้า Dashboard และ Assignment
 tasks = [
     {
         "id": 1,
@@ -74,8 +73,32 @@ def assignment():
     return render_template("assignment.html", tasks=tasks)
 
 
-@app.route("/add")
+@app.route("/add", methods=["GET", "POST"])
 def add():
+    if request.method == "POST":
+        new_title = request.form.get("title")
+        new_subject = request.form.get("subject")
+        new_due = request.form.get("due_date")
+        new_status = request.form.get("status")
+
+        status_class = "pacing"
+        if new_status == "Doing":
+            status_class = "doing"
+        elif new_status == "Completed":
+            status_class = "completed"
+
+        new_task = {
+            "id": len(tasks) + 1,
+            "title": new_title,
+            "subject": new_subject,
+            "due": new_due,
+            "status": new_status,
+            "class": status_class,
+        }
+        tasks.append(new_task)
+
+        return redirect(url_for("dashboard"))
+
     return render_template("add.html")
 
 
