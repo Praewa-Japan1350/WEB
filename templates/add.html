@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="table-container" style="max-width: 600px; margin: auto;">
+    <h2>บันทึกข้อมูลงาน</h2>
+    <form style="margin-top: 20px;">
+        <label>ชื่อกิจกรรม/งาน</label>
+        <input type="text" class="auth-input" style="width: 100%;" placeholder="เช่น โปรเจกต์ AI">
+        
+        <label>วิชา</label>
+        <input type="text" class="auth-input" style="width: 100%;" placeholder="วิชาเรียน">
+        
+        <label>วันกำหนดส่ง</label>
+        <input type="date" class="auth-input" style="width: 100%;">
+        
+        <label>สถานะ</label>
+        <select class="auth-input" style="width: 100%;">
+            <option>Pending</option>
+            <option>Doing</option>
+            <option>Completed</option>
+        </select>
+        
+        <button type="submit" class="btn-add" style="width: 100%; margin-top: 20px;">บันทึกข้อมูล</button>
+    </form>
+</div>
+{% endblock %}

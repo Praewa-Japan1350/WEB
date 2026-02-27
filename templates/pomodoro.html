@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="table-container" style="text-align: center; padding: 60px 0;">
+    <h2 style="color: #343a5f;">Pomodoro Timer</h2>
+    <p style="color: #a0aec0;">Focus on your AI studies</p>
+    
+    <div style="font-size: 8rem; font-weight: bold; color: #4e73df; margin: 40px 0;" id="timerDisplay">25:00</div>
+    
+    <div style="display: flex; justify-content: center; gap: 20px;">
+        <button class="btn-primary" id="startBtn" onclick="toggleTimer()" style="width: 150px;">Start</button>
+        <button class="btn-primary" onclick="resetTimer()" style="width: 150px; background: #eaecf4; color: #333;">Reset</button>
+    </div>
+    
+    <div style="margin-top: 50px; display: flex; justify-content: center; gap: 30px; color: #a0aec0;">
+        <span><i class="fas fa-brain"></i> Focus: 25m</span>
+        <span><i class="fas fa-coffee"></i> Break: 5m</span>
+    </div>
+</div>
+
+<script>
+    let timeLeft = 25 * 60;
+    let timerId = null;
+
+    function toggleTimer() {
+        const btn = document.getElementById('startBtn');
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+            btn.innerText = "Start";
+        } else {
+            btn.innerText = "Pause";
+            timerId = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    clearInterval(timerId);
+                    alert("Time is up! Take a break.");
+                }
+            }, 1000);
+        }
+    }
+
+    function updateDisplay() {
+        const m = Math.floor(timeLeft / 60);
+        const s = timeLeft % 60;
+        document.getElementById('timerDisplay').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+    }
+
+    function resetTimer() {
+        clearInterval(timerId);
+        timerId = null;
+        timeLeft = 25 * 60;
+        updateDisplay();
+        document.getElementById('startBtn').innerText = "Start";
+    }
+</script>
+{% endblock %}

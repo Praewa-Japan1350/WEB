@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="header-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+    <h1>Quick Notes</h1>
+    <button class="btn-primary">+ New Note</button>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+    <div class="table-container" style="background: #fff9c4; border: none; min-height: 200px;">
+        <h4 style="margin-top: 0;">AI Mini-Project Idea</h4>
+        <p>ใช้ Genetic Algorithm ในการแก้ปัญหาตารางเรียนที่ PSU</p>
+        <small style="color: #856404; opacity: 0.7;">Updated: Today</small>
+    </div>
+    <div class="table-container" style="background: #e1f5fe; border: none; min-height: 200px;">
+        <h4 style="margin-top: 0;">Exam Preparation</h4>
+        <p>ทบทวนเนื้อหา Calculus บทที่ 4-6 ก่อนวันศุกร์นี้</p>
+        <small style="color: #01579b; opacity: 0.7;">Updated: 2 days ago</small>
+    </div>
+</div>
+{% endblock %}

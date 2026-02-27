@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="table-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>GPA Tracker 📈</h2>
+        <button class="btn-primary" onclick="addRow()">+ Add Subject</button>
+    </div>
+    <table id="gradeTable">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Credit</th>
+                <th>Grade</th>
+                <th>Point</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>AI Engineering</td>
+                <td>3</td>
+                <td><select class="auth-input" onchange="updateGPA()"><option value="4">A</option><option value="3.5">B+</option><option value="3">B</option></select></td>
+                <td class="row-point">12</td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="margin-top: 30px; padding: 20px; background: #f8f9fc; border-radius: 10px; text-align: right;">
+        <h3 style="margin: 0;">GPA Cumulative: <span id="gpaValue" style="color: #4e73df;">4.00</span></h3>
+    </div>
+</div>
+
+<script>
+    function updateGPA() {
+        // Logic สำหรับคำนวณเกรดอัตโนมัติจะอยู่ตรงนี้
+        document.getElementById('gpaValue').innerText = "3.85"; // ตัวอย่างค่าที่คำนวณ
+    }
+</script>
+{% endblock %}

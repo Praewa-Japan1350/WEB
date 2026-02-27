@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="table-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>รายการงานทั้งหมด</h2>
+        <a href="/add" class="btn-add" style="text-decoration: none;">+ เพิ่มงานใหม่</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>งาน</th>
+                <th>วิชา</th>
+                <th>กำหนดส่ง</th>
+                <th>สถานะ</th>
+                <th>จัดการ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.subject }}</td>
+                <td>{{ task.due }}</td>
+                <td><span class="badge badge-{{ task.status.lower() }}">{{ task.status }}</span></td>
+                <td>
+                    <a href="/edit_assignment/1" style="color: var(--card-blue); margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                    <a href="#" style="color: var(--card-orange);"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

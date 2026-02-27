@@ -1,35 +1,42 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-from flask import flash
-import sqlite3
-import os
+from flask import Flask, render_template, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = "secret123"
 
-DATABASE = "assignments.db"
-
-
-def init_db():
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
-
-    c.execute(
-        """
-        CREATE TABLE IF NOT EXISTS assignments (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            subject TEXT NOT NULL,
-            due_date TEXT NOT NULL,
-            status TEXT NOT NULL
-        )
-    """
-    )
-
-    conn.commit()
-    conn.close()
-
-
-init_db()
+# ข้อมูลตัวอย่างสำหรับแสดงในหน้า Dashboard และ Assignment
+tasks = [
+    {
+        "id": 1,
+        "title": "Math Homework 4",
+        "subject": "Calculus",
+        "due": "28 Feb, 2026",
+        "status": "Pending",
+        "class": "pacing",
+    },
+    {
+        "id": 2,
+        "title": "Research Paper",
+        "subject": "History",
+        "due": "05 Mar, 2026",
+        "status": "Doing",
+        "class": "doing",
+    },
+    {
+        "id": 3,
+        "title": "History Project",
+        "subject": "Mavenatics",
+        "due": "10 Mar, 2026",
+        "status": "Completed",
+        "class": "completed",
+    },
+    {
+        "id": 4,
+        "title": "Physics Lab Report",
+        "subject": "Physics",
+        "due": "12 Mar, 2026",
+        "status": "Completed",
+        "class": "completed",
+    },
+]
 
 
 @app.route("/")
@@ -37,178 +44,84 @@ def index():
     return redirect(url_for("login"))
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login")
 def login():
-    if request.method == "POST":
-        email = request.form.get("email")
-
-        session["user"] = email
-        return redirect(url_for("dashboard"))
     return render_template("login.html")
 
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/register")
 def register():
-    error = None
-
-    if request.method == "POST":
-        fullname = request.form["fullname"]
-        email = request.form["email"]
-        student_id = request.form["student_id"]
-        password = request.form["password"]
-        confirm_password = request.form["confirm_password"]
-
-        if len(password) < 6:
-            error = "Password must be at least 6 characters."
-
-        elif password != confirm_password:
-            error = "Passwords do not match."
-
-        else:
-            return redirect(url_for("login"))
-
-    return render_template("register.html", error=error)
+    return render_template("register.html")
 
 
-@app.route("/reset-password", methods=["GET", "POST"])
-def reset_password():
-    if request.method == "POST":
-        new_password = request.form["new_password"]
-        confirm_password = request.form["confirm_password"]
-
-        if new_password != confirm_password:
-            return render_template("reset_password.html")
-
-        return redirect("/login")
-
-    return render_template("reset_password.html")
-
-
-@app.route("/forgot_password", methods=["GET", "POST"])
+@app.route("/forgot_password")
 def forgot_password():
-    if request.method == "POST":
-        email = request.form["email"]
-        return redirect(url_for("reset_password"))
-
     return render_template("forgot_password.html")
+
+
+@app.route("/reset_password")
+def reset_password():
+    return render_template("reset_password.html")
 
 
 @app.route("/dashboard")
 def dashboard():
-    if "user" not in session:
-        return redirect(url_for("login"))
-
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
-
-    c.execute("SELECT * FROM assignments")
-    assignments = c.fetchall()
-
-    c.execute("SELECT COUNT(*) FROM assignments")
-    total = c.fetchone()[0]
-
-    c.execute("SELECT COUNT(*) FROM assignments WHERE status='Pending'")
-    pending = c.fetchone()[0]
-
-    c.execute("SELECT COUNT(*) FROM assignments WHERE status='Doing'")
-    doing = c.fetchone()[0]
-
-    c.execute("SELECT COUNT(*) FROM assignments WHERE status='Completed'")
-    completed = c.fetchone()[0]
-
-    conn.close()
-
-    return render_template(
-        "dashboard.html",
-        user=session["user"],
-        assignments=assignments,
-        total=total,
-        pending=pending,
-        doing=doing,
-        completed=completed,
-    )
+    return render_template("dashboard.html", tasks=tasks)
 
 
-@app.route("/add", methods=["GET", "POST"])
+@app.route("/assignment")
+def assignment():
+    return render_template("assignment.html", tasks=tasks)
+
+
+@app.route("/add")
 def add():
-    if "user" not in session:
-        return redirect(url_for("login"))
-
-    if request.method == "POST":
-        title = request.form["title"]
-        subject = request.form["subject"]
-        due_date = request.form["due_date"]
-        status = request.form["status"]
-
-        conn = sqlite3.connect(DATABASE)
-        c = conn.cursor()
-        c.execute(
-            """
-            INSERT INTO assignments (title, subject, due_date, status)
-            VALUES (?, ?, ?, ?)
-        """,
-            (title, subject, due_date, status),
-        )
-        conn.commit()
-        conn.close()
-
-        return redirect(url_for("dashboard"))
-
-    return render_template("add_assignment.html")
+    return render_template("add.html")
 
 
-@app.route("/edit/<int:id>", methods=["GET", "POST"])
-def edit(id):
-    if "user" not in session:
-        return redirect(url_for("login"))
-
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
-
-    if request.method == "POST":
-        title = request.form["title"]
-        subject = request.form["subject"]
-        due_date = request.form["due_date"]
-        status = request.form["status"]
-
-        c.execute(
-            """
-            UPDATE assignments
-            SET title=?, subject=?, due_date=?, status=?
-            WHERE id=?
-        """,
-            (title, subject, due_date, status, id),
-        )
-
-        conn.commit()
-        conn.close()
-        return redirect(url_for("dashboard"))
-
-    c.execute("SELECT * FROM assignments WHERE id=?", (id,))
-    assignment = c.fetchone()
-    conn.close()
-
-    return render_template("edit_assignment.html", assignment=assignment)
+@app.route("/edit_assignment/<int:id>")
+def edit_assignment(id):
+    return render_template("edit_assignment.html", id=id)
 
 
-@app.route("/delete/<int:id>")
-def delete(id):
-    if "user" not in session:
-        return redirect(url_for("login"))
+@app.route("/calender")
+def calender():
+    return render_template("calender.html")
 
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
-    c.execute("DELETE FROM assignments WHERE id=?", (id,))
-    conn.commit()
-    conn.close()
 
-    return redirect(url_for("dashboard"))
+@app.route("/subjects")
+def subjects():
+    return render_template("subjects.html")
+
+
+@app.route("/grades")
+def grades():
+    return render_template("grades.html")
+
+
+@app.route("/pomodoro")
+def pomodoro():
+    return render_template("pomodoro.html")
+
+
+@app.route("/notes")
+def notes():
+    return render_template("notes.html")
+
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
 @app.route("/logout")
 def logout():
-    session.clear()
-    return redirect(url_for("login"))
+    return render_template("logout.html")
 
 
 if __name__ == "__main__":

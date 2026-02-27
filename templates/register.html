@@ -1,38 +1,31 @@
-{% extends "base.html" %}
-{% block content %}
-
-<div class="login-wrapper">
-    <div class="login-card">
-        <h1>Create Account</h1>
-
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-
-        <form method="POST">
-            <label>Full Name</label>
-            <input type="text" name="fullname" required>
-
-            <label>Email</label>
-            <input type="email" name="email" required>
-
-            <label>Student ID</label>
-            <input type="text" name="student_id" required>
-
-            <label>Password</label>
-            <input type="password" name="password" required>
-
-            <label>Confirm Password</label>
-            <input type="password" name="confirm_password" required>
-
-            <button type="submit">Register</button>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Student Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-box">
+        <div class="logo-circle" style="margin: 0 auto 20px;">PK</div>
+        <h2 style="color: #343a5f;">สร้างบัญชีใหม่</h2>
+        <p style="color: #a0aec0; margin-bottom: 20px;">เริ่มต้นจัดการงานของคุณวันนี้</p>
+        
+        <form action="/login">
+            <input type="text" class="auth-input" placeholder="Full Name (ชื่อ-นามสกุล)" required>
+            <input type="email" class="auth-input" placeholder="Email (อีเมลมหาวิทยาลัย)" required>
+            <input type="password" class="auth-input" placeholder="Password" required>
+            <input type="password" class="auth-input" placeholder="Confirm Password" required>
+            
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">
+                Sign Up
+            </button>
         </form>
-
-        <p class="register">
-            Already have an account?
-            <a href="{{ url_for('login') }}">Login</a>
+        
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #a0aec0;">
+            มีบัญชีอยู่แล้ว? <a href="/login" style="color: #4e73df; text-decoration: none; font-weight: bold;">เข้าสู่ระบบ</a>
         </p>
     </div>
-</div>
-
-{% endblock %}
+</body>
+</html>

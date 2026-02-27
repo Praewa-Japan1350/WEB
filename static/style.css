@@ -1,282 +1,34 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+:root {
+    --sidebar-bg: #343a5f; --main-bg: #f3f6fd; --blue: #4e73df;
+    --yellow: #f6c23e; --orange: #f68059; --green: #1cc88a;
 }
-
-body {
-    background: #f3f6fb;
-}
-
-/* Layout */
-.layout {
-    display: flex;
-    height: 100vh;
-}
+* { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { margin: 0; display: flex; background: var(--main-bg); color: #5a5c69; }
 
 /* Sidebar */
-.sidebar {
-    width: 260px;
-    background: linear-gradient(180deg, #2b3a67, #1e2a4f);
-    color: white;
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.menu a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 10px;
-}
-
-.menu li {
-    list-style: none;
-    padding: 5px 0;
-}
-
-.menu li.active {
-    background: #3b82f6;
-    color: white;
-    border-radius: 6px;
-}
-
-.logout a {
-    text-decoration: none;
-    color: white;
-}
+.sidebar { width: 260px; height: 100vh; background: var(--sidebar-bg); color: white; position: fixed; padding: 20px; display: flex; flex-direction: column; }
+.logo-section { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
+.logo-circle { width: 40px; height: 40px; background: #5a67d8; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+.nav-item { display: flex; align-items: center; gap: 15px; color: #a0aec0; text-decoration: none; padding: 12px; border-radius: 10px; margin-bottom: 5px; transition: 0.3s; }
+.nav-item:hover, .active { background: rgba(255,255,255,0.1); color: white; }
 
 /* Content */
-.content {
-    flex: 1;
-    padding: 40px;
-}
+.main-content { margin-left: 260px; padding: 40px; width: 100%; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+.stat-card { padding: 25px; border-radius: 15px; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.bg-blue { background: var(--blue); } .bg-yellow { background: var(--yellow); } .bg-orange { background: var(--orange); } .bg-green { background: var(--green); }
 
-/* Login */
-.login-wrapper {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
+/* Table & UI */
+.table-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { text-align: left; padding: 15px; border-bottom: 1px solid #edf2f7; }
+.badge { padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; }
+.pacing { background: #fff3cd; color: #856404; }
+.doing { background: #ffe8cc; color: #d9480f; }
+.completed { background: #d3f9d8; color: #2b8a3e; }
+.btn-primary { background: var(--blue); color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; }
 
-.login-card, .info-card {
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    width: 350px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-}
-
-.login-card h1 {
-    margin-bottom: 25px;
-}
-
-.login-card label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-}
-
-.login-card input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-.remember {
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.login-card button {
-    margin-top: 20px;
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(90deg, #4f6edb, #6b8cff);
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.login-card button:hover {
-    opacity: 0.9;
-}
-
-.register {
-    margin-top: 20px;
-    font-size: 14px;
-    text-align: center;
-}
-
-.info-card h2 {
-    margin-bottom: 15px;
-}
-
-.error {
-    color: red;
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.password-wrapper {
-    position: relative;
-}
-
-.password-wrapper input {
-    width: 100%;
-    padding-right: 40px;
-}
-
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.forgot {
-    text-align: right;
-    margin-top: 8px;
-    font-size: 13px;
-}
-
-.forgot a {
-    text-decoration: none;
-    color: #4f6edb;
-}
-
-.forgot a:hover {
-    text-decoration: underline;
-}
-
-.auth-container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-}
-
-.auth-card {
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    width: 350px;
-    text-align: center;
-}
-
-.auth-card input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.auth-card button {
-    width: 100%;
-    padding: 10px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    border: none;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.fullscreen-center {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.input-group {
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 14px 45px 14px 14px; /* เว้นที่ให้ตา */
-    border-radius: 15px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-.toggle {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 18px;
-}
-
-/* ===== CARDS ===== */
-.cards{
-    display:flex;
-    gap:20px;
-    margin:20px 0;
-}
-
-.card{
-    flex:1;
-    padding:20px;
-    border-radius:10px;
-    color:white;
-}
-
-.blue{background:#4e73df;}
-.yellow{background:#f6c23e;}
-.orange{background:#fd7e14;}
-.green{background:#1cc88a;}
-
-/* ===== TABLE ===== */
-.assignment-table{
-    width:100%;
-    background:white;
-    border-radius:10px;
-    border-collapse:collapse;
-}
-
-.assignment-table th,
-.assignment-table td{
-    padding:12px;
-    border-bottom:1px solid #eee;
-}
-
-/* ===== STATUS COLOR ===== */
-.status{
-    padding:5px 10px;
-    border-radius:8px;
-    color:white;
-}
-
-.status.pending{background:#f6c23e;}
-.status.doing{background:#fd7e14;}
-.status.completed{background:#1cc88a;}
+/* Auth */
+.auth-page { height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; }
+.auth-box { background: white; padding: 40px; border-radius: 20px; width: 380px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+.auth-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }

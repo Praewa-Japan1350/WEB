@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="table-container" style="max-width: 800px; margin: 20px auto;">
+    <div style="text-align: center; padding: 40px; border-bottom: 1px solid #eee;">
+        <div style="position: relative; display: inline-block;">
+            <img src="https://ui-avatars.com/api/?name=Japan+PSU&size=150&background=4e73df&color=fff" 
+                 style="border-radius: 50%; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            <button style="position: absolute; bottom: 5px; right: 5px; background: white; border: none; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                <i class="fas fa-camera" style="color: #4e73df;"></i>
+            </button>
+        </div>
+        <h2 style="margin-top: 20px; color: #343a5f;">Japan</h2>
+        <p style="color: #a0aec0;">First-year AI Engineering Student</p>
+        <span class="badge completed" style="font-size: 0.9rem; padding: 8px 20px;">Prince of Songkla University</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 40px;">
+        <div class="info-group">
+            <h4 style="color: #4e73df;"><i class="fas fa-graduation-cap"></i> Academic Info</h4>
+            <p><strong>Student ID:</strong> 68XXXXXXX</p>
+            <p><strong>Faculty:</strong> Engineering</p>
+            <p><strong>Major:</strong> Artificial Intelligence (AI)</p>
+        </div>
+        <div class="info-group">
+            <h4 style="color: #4e73df;"><i class="fas fa-heart"></i> Interests</h4>
+            <ul style="padding-left: 20px; color: #5a5c69;">
+                <li>Computer Vision & NLP</li>
+                <li>Robotics & Neural Networks</li>
+                <li>Korean & Chinese Dramas</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div style="padding: 0 40px 40px; text-align: center;">
+        <button class="btn-primary" style="width: 200px;">Edit Profile</button>
+    </div>
+</div>
+{% endblock %}

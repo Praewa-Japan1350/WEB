@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="header-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+    <h1>My Subjects</h1>
+    <button class="btn-primary">+ Add New Subject</button>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
+    <div class="table-container" style="border-left: 5px solid #4e73df; transition: 0.3s; cursor: pointer;">
+        <div style="display: flex; justify-content: space-between;">
+            <h3 style="margin: 0; color: #343a5f;">AI Engineering</h3>
+            <i class="fas fa-brain" style="color: #4e73df; opacity: 0.3;"></i>
+        </div>
+        <p style="font-size: 0.9rem; color: #a0aec0; margin: 10px 0;">Code: AI-101 | Credits: 3</p>
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+            <div style="flex-grow: 1; height: 8px; background: #eee; border-radius: 4px;">
+                <div style="width: 75%; height: 100%; background: #4e73df; border-radius: 4px;"></div>
+            </div>
+            <span style="font-size: 0.8rem; font-weight: bold;">75%</span>
+        </div>
+    </div>
+
+    <div class="table-container" style="border-left: 5px solid #1cc88a; transition: 0.3s; cursor: pointer;">
+        <div style="display: flex; justify-content: space-between;">
+            <h3 style="margin: 0; color: #343a5f;">Calculus I</h3>
+            <i class="fas fa-calculator" style="color: #1cc88a; opacity: 0.3;"></i>
+        </div>
+        <p style="font-size: 0.9rem; color: #a0aec0; margin: 10px 0;">Code: MATH-111 | Credits: 3</p>
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+            <div style="flex-grow: 1; height: 8px; background: #eee; border-radius: 4px;">
+                <div style="width: 40%; height: 100%; background: #1cc88a; border-radius: 4px;"></div>
+            </div>
+            <span style="font-size: 0.8rem; font-weight: bold;">40%</span>
+        </div>
+    </div>
+
+    <div class="table-container" style="border-left: 5px solid #f6c23e; transition: 0.3s; cursor: pointer;">
+        <div style="display: flex; justify-content: space-between;">
+            <h3 style="margin: 0; color: #343a5f;">English Pronunciation</h3>
+            <i class="fas fa-comment-dots" style="color: #f6c23e; opacity: 0.3;"></i>
+        </div>
+        <p style="font-size: 0.9rem; color: #a0aec0; margin: 10px 0;">Code: ENG-102 | Credits: 2</p>
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
+            <div style="flex-grow: 1; height: 8px; background: #eee; border-radius: 4px;">
+                <div style="width: 90%; height: 100%; background: #f6c23e; border-radius: 4px;"></div>
+            </div>
+            <span style="font-size: 0.8rem; font-weight: bold;">90%</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
