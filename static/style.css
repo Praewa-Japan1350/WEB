@@ -3,7 +3,7 @@
     --yellow: #f6c23e; --orange: #f68059; --green: #1cc88a;
 }
 * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-body { margin: 0; display: flex; background: var(--main-bg); color: #5a5c69; }
+body { margin: 0; display: flex; background: var(--main-bg); color: #636360;; }
 
 /* Sidebar */
 .sidebar { width: 260px; height: 100vh; background: var(--sidebar-bg); color: white; position: fixed; padding: 20px; display: flex; flex-direction: column; }
