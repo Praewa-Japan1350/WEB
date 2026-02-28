@@ -1,4 +1,4 @@
-# 🌊 StudyFlow Tracker (v1.0.0)
+# 🌊 Student Tracker (v1.0.0)
 **Project by: Japan (AI Engineering Student, PSU)**
 
 Student Tracker คือเว็บแอปพลิเคชันสำหรับนักศึกษาที่ช่วยในการจัดการตารางเรียน ติดตามงาน (Task Tracking) และบันทึกไอเดีย โดยเน้นความเรียบง่ายและใช้งานได้จริง
