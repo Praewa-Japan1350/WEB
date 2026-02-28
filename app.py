@@ -1,7 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
-subjects_list = []
+subjects_list = [
+    {"name": "AI Engineering", "code": "AI-101", "credits": 3, "progress": 75},
+    {"name": "Calculus I", "code": "MATH-101", "credits": 3, "progress": 40},
+]
 
 tasks = [
     {
@@ -122,7 +125,7 @@ def calender():
 
 @app.route("/subjects")
 def subjects_page():
-    return render_template("subjects.html, subjects=subjects_list")
+    return render_template("subjects.html", subjects=subjects_list)
 
 
 @app.route("/add_subject", methods=["GET", "POST"])
