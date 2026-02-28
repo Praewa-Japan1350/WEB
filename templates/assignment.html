@@ -3,7 +3,7 @@
 <div class="table-container">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2>รายการงานทั้งหมด</h2>
-        <a href="/add" class="btn-add" style="text-decoration: none;">+ เพิ่มงานใหม่</a>
+        <a href="/add" class="btn-add" style="text-decoration: none; color: #2315b5;" >+ เพิ่มงานใหม่</a>
     </div>
     <table>
         <thead>
@@ -23,8 +23,10 @@
                 <td>{{ task.due }}</td>
                 <td><span class="badge badge-{{ task.status.lower() }}">{{ task.status }}</span></td>
                 <td>
-                    <a href="/edit_assignment/1" style="color: var(--card-blue); margin-right: 10px;"><i class="fas fa-edit"></i></a>
-                    <a href="#" style="color: var(--card-orange);"><i class="fas fa-trash"></i></a>
+                    <a href="/edit_assignment/1" style="color: var(--card-blue); margin-right: 10px;">
+                        <i class="fas fa-edit"></i></a>
+                    <a href="/delete_task/{{ task.id }}" style="color: var(--card-orange);">
+                        <i class="fas fa-trash"></i></a>
                 </tr>
             {% endfor %}
         </tbody>

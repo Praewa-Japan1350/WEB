@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ยืนยันการลบงาน</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f4f4f4; /* สีเทาอ่อนให้ความรู้สึกเป็นหน้าจัดการ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .confirm-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .icon-trash {
+            font-size: 50px;
+            color: #d1d1d1; /* สีเทาตามที่คุณวงไว้ */
+            margin-bottom: 20px;
+        }
+        h2 { margin-bottom: 10px; color: #333; }
+        p { color: #666; margin-bottom: 30px; }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 10px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            transition: 0.2s;
+        }
+        .btn-confirm { background-color: #e53e3e; color: white; }
+        .btn-confirm:hover { background-color: #c53030; }
+        .btn-cancel { background-color: #edf2f7; color: #4a5568; }
+        .btn-cancel:hover { background-color: #e2e8f0; }
+    </style>
+</head>
+<body>
+
+<div class="confirm-box">
+    <div class="icon-trash"><i class="fa-regular fa-trash-can"></i></div>
+    <h2>ยืนยันการลบรายการ</h2>
+    <p>คุณแน่ใจหรือไม่ที่จะลบรายการ <strong id="task-name">นี้</strong> ออกจากระบบ? การกระทำนี้ไม่สามารถย้อนกลับได้</p>
+    
+    <div class="btn-group">
+        <button onclick="confirmDelete()" class="btn btn-confirm">ยืนยันการลบ</button>
+        <a href="assignment.html" class="btn btn-cancel">ยกเลิก</a>
+    </div>
+</div>
+
+<script>
+    // ดึงค่า ID จาก URL มาแสดง (ตัวอย่าง)
+    const urlParams = new URLSearchParams(window.location.search);
+    const taskId = urlParams.get('id');
+    
+    if(taskId) {
+        // ในระบบจริงจะเอา taskId ไปดึงชื่อจาก Database มาโชว์
+        document.getElementById('task-name').innerText = "งานรหัส #" + taskId;
+    }
+
+    function confirmDelete() {
+        alert("ลบข้อมูลสำเร็จ!");
+        // หลังจากลบเสร็จ ให้ส่งผู้ใช้กลับไปที่หน้าหลัก
+        window.location.href = "assignment.html"; 
+    }
+</script>
+
+</body>
+</html>

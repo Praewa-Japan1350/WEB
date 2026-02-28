@@ -107,8 +107,10 @@ def edit_assignment(id):
     return render_template("edit_assignment.html", id=id)
 
 
-@app.route("/delete/<int:id>")
-def delete_item(id):
+@app.route("/delete_task/<int:id>")
+def delete_task(id):
+    global tasks
+    tasks = [task for task in tasks if task["id"] != id]
     return redirect(url_for("assignment"))
 
 
