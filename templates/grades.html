@@ -1,46 +1,142 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="table-container">
+<div class="table-container" style="padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2>GPA Tracker 📈</h2>
-        <button class="btn-primary" onclick="addRow()">+ Add Subject</button>
+        <button class="btn-primary" onclick="window.location.href='/add_subject'" style="background-color: #4e73df; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
+            + Add Subject
+        </button>
     </div>
-    <table id="gradeTable">
+    <table id="gradeTable" style="width: 100%; border-collapse: collapse;">
         <thead>
-            <tr>
-                <th>Subject</th>
-                <th>Credit</th>
-                <th>Grade</th>
-                <th>Point</th>
+            <tr style="border-bottom: 2px solid #eee; text-align: left;">
+                <th style="padding: 12px;">Subject</th>
+                <th style="padding: 12px;">Credit</th>
+                <th style="padding: 12px;">Grade</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>AI Engineering</td>
-                <td>3</td>
-                <td><select class="auth-input" onchange="updateGPA()">
-                    <option value="4.0">A</option>
-                    <option value="3.5">B+</option>
-                    <option value="3.0">B</option>
-                    <option value="2.5">C+</option>
-                    <option value="2.0">C</option>
-                    <option value="1.5">D+</option>
-                    <option value="1.0">D</option>
-                    <option value="0.0">F</option>
-                </td>
-                <td class="row-point">12</td>
-            </tr>
-        </tbody>
+    <tr>
+        <td>AI Engineering</td>
+        <td class="credit">3</td>
+        <td>
+            <select class="auth-input grade-selector" onchange="calculateGPA()">
+                <option value="4.0">A</option>
+                <option value="3.5">B+</option>
+                <option value="3.0">B</option>
+                <option value="2.5">C+</option>
+                <option value="2.0">C</option>
+                <option value="1.5">D+</option>
+                <option value="1.0">D</option>
+                <option value="0.0">F</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Calculus I</td>
+        <td class="credit">3</td>
+        <td>
+            <select class="auth-input grade-selector" onchange="calculateGPA()">
+                <option value="4.0">A</option>
+                <option value="3.5">B+</option>
+                <option value="3.0">B</option>
+                <option value="2.5">C+</option>
+                <option value="2.0">C</option>
+                <option value="1.5">D+</option>
+                <option value="1.0">D</option>
+                <option value="0.0">F</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>English Pronunciation</td>
+        <td class="credit">2</td>
+        <td>
+            <select class="auth-input grade-selector" onchange="calculateGPA()">
+                <option value="4.0">A</option>
+                <option value="3.5">B+</option>
+                <option value="3.0">B</option>
+                <option value="2.5">C+</option>
+                <option value="2.0">C</option>
+                <option value="1.5">D+</option>
+                <option value="1.0">D</option>
+                <option value="0.0">F</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Computer Programming</td>
+        <td class="credit">3</td>
+        <td>
+            <select class="auth-input grade-selector" onchange="calculateGPA()">
+                <option value="4.0">A</option>
+                <option value="3.5">B+</option>
+                <option value="3.0">B</option>
+                <option value="2.5">C+</option>
+                <option value="2.0">C</option>
+                <option value="1.5">D+</option>
+                <option value="1.0">D</option>
+                <option value="0.0">F</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Physics for AI</td>
+        <td class="credit">3</td>
+        <td>
+            <select class="auth-input grade-selector" onchange="calculateGPA()">
+                <option value="4.0">A</option>
+                <option value="3.5">B+</option>
+                <option value="3.0">B</option>
+                <option value="2.5">C+</option>
+                <option value="2.0">C</option>
+                <option value="1.5">D+</option>
+                <option value="1.0">D</option>
+                <option value="0.0">F</option>
+            </select>
+        </td>
+    </tr>
+</tbody>
     </table>
     <div style="margin-top: 30px; padding: 20px; background: #f8f9fc; border-radius: 10px; text-align: right;">
         <h3 style="margin: 0;">GPA Cumulative: <span id="gpaValue" style="color: #4e73df;">4.00</span></h3>
     </div>
 </div>
 
+{# Macro สำหรับสร้าง Select เกรดเพื่อลดโค้ดซ้ำ #}
+{% macro grade_select() %}
+<select class="auth-input grade-selector" onchange="calculateGPA()" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ddd;">
+    <option value="4.0">A</option>
+    <option value="3.5">B+</option>
+    <option value="3.0">B</option>
+    <option value="2.5">C+</option>
+    <option value="2.0">C</option>
+    <option value="1.5">D+</option>
+    <option value="1.0">D</option>
+    <option value="0.0">F</option>
+</select>
+{% endmacro %}
+
 <script>
-    function updateGPA() {
-        // Logic สำหรับคำนวณเกรดอัตโนมัติจะอยู่ตรงนี้
-        document.getElementById('gpaValue').innerText = "3.85"; // ตัวอย่างค่าที่คำนวณ
+    function calculateGPA() {
+        let totalPoints = 0;
+        let totalCredits = 0;
+        
+        const rows = document.querySelectorAll("#gradeTable tbody tr");
+        
+        rows.forEach(row => {
+            const credit = parseFloat(row.querySelector(".credit").innerText);
+            const grade = parseFloat(row.querySelector(".grade-selector").value);
+            
+            totalPoints += (credit * grade);
+            totalCredits += credit;
+        });
+        
+        const gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00";
+        document.getElementById('gpaValue').innerText = gpa;
     }
+
+    // คำนวณค่าเริ่มต้นเมื่อโหลดหน้า
+    window.onload = calculateGPA;
 </script>
 {% endblock %}
