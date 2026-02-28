@@ -2,7 +2,10 @@
 {% block content %}
 <div class="header-section" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
     <h1>My Subjects</h1>
-    <button class="btn-primary">+ Add New Subject</button>
+    <button class="btn-primary" onclick="window.location.href='/add_subject'" 
+        style="background-color: #4e73df; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer;">
+    + Add New Subject
+</button>
 </div>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">

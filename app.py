@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
+subjects_list = []
 
 tasks = [
     {
@@ -120,8 +121,23 @@ def calender():
 
 
 @app.route("/subjects")
-def subjects():
-    return render_template("subjects.html")
+def subjects_page():
+    return render_template("subjects.html, subjects=subjects_list")
+
+
+@app.route("/add_subject", methods=["GET", "POST"])
+def add_subject():
+    if request.method == "POST":
+        name = request.form.get("name")
+        code = request.form.get("code")
+        credits = request.form.get("credits")
+
+        new_subject = {"name": name, "code": code, "credits": credits, "progress": 0}
+        subjects_list.append(new_subject)
+
+        return redirect("/subjects")
+
+    return render_template("add_subject.html")
 
 
 @app.route("/grades")

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="table-container" style="max-width: 500px; margin: 50px auto; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; margin-bottom: 25px;">Add New Subject 📚</h2>
+    
+    <form action="/add_subject" method="POST">
+        <div style="margin-bottom: 15px;">
+            <label>Subject Name</label>
+            <input type="text" name="name" placeholder="e.g. AI Engineering" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px;" required>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Course Code</label>
+            <input type="text" name="code" placeholder="e.g. AI-101" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px;" required>
+        </div>
+        
+        <div style="margin-bottom: 25px;">
+            <label>Credits</label>
+            <input type="number" name="credits" placeholder="e.g. 3" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px;" required>
+        </div>
+
+        <button type="submit" style="width: 100%; background-color: #4e73df; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer;">
+            บันทึกรายวิชา
+        </button>
+        
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="/subjects" style="color: #888; text-decoration: none; font-size: 14px;">ยกเลิก</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
