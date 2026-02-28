@@ -33,3 +33,5 @@ h1 {font-size: 32px; font-weight: bold; color:#103589; margin-bottom: 30px;}
 .auth-page { height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; }
 .auth-box { background: white; padding: 40px; border-radius: 20px; width: 380px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 .auth-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+
+.btn-submit {background-color: #103589;color: white;}
