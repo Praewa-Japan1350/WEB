@@ -2,22 +2,73 @@
 {% block content %}
 <div style="display:flex; justify-content:space-between; align-items:center;">
     <h1>Dashboard</h1>
-    <div style="display:flex; align-items:center; gap:15px;"><i class="far fa-bell"></i><img src="https://ui-avatars.com/api/?name=Japan+PSU" style="width:40px; border-radius:50%;"><span>Japan</span></div>
+    <div style="display:flex; align-items:center; gap:15px;">
+        <i class="far fa-bell"></i>
+        <img src="https://ui-avatars.com/api/?name=Japan+PSU" style="width:40px; border-radius:50%;">
+        <span>Japan</span>
+    </div>
 </div>
+
 <h2>Welcome, Japan! 🎓</h2>
+
 <div class="stats-grid">
-    <div class="stat-card bg-blue"><div>Total</div><h2>5</h2><i class="fas fa-tasks fa-2x"></i></div>
-    <div class="stat-card bg-yellow"><div>Pending</div><h2>1</h2><i class="fas fa-lightbulb fa-2x"></i></div>
-    <div class="stat-card bg-orange"><div>Doing</div><h2>2</h2><i class="fas fa-pen fa-2x"></i></div>
-    <div class="stat-card bg-green"><div>Done</div><h2>2</h2><i class="fas fa-check-circle fa-2x"></i></div>
+    <div class="stat-card bg-blue">
+        <div>Total</div>
+        <h2>{{ tasks|length }}</h2> <i class="fas fa-tasks fa-2x"></i>
+    </div>
+    
+    <div class="stat-card bg-yellow">
+        <div>Pending</div>
+        <h2>
+            {{ tasks|selectattr("status", "equalto", "Pending")|list|length }}
+        </h2>
+        <i class="fas fa-lightbulb fa-2x"></i>
+    </div>
+    
+    <div class="stat-card bg-orange">
+        <div>Doing</div>
+        <h2>
+            {{ tasks|selectattr("status", "equalto", "Doing")|list|length }}
+        </h2>
+        <i class="fas fa-pen fa-2x"></i>
+    </div>
+    
+    <div class="stat-card bg-green">
+        <div>Done</div>
+        <h2>
+            {{ tasks|selectattr("status", "equalto", "Completed")|list|length }}
+        </h2>
+        <i class="fas fa-check-circle fa-2x"></i>
+    </div>
 </div>
+
 <div class="table-container">
-    <div style="display:flex; justify-content:space-between;"><h3>Assignments</h3><button class="btn-primary" onclick="window.location.href='/add'">+ Add</button></div>
+    <div style="display:flex; justify-content:space-between;">
+        <h3>Assignments</h3>
+        <button class="btn-primary" onclick="window.location.href='/add'">+ Add</button>
+    </div>
     <table>
-        <thead><tr><th>Assignment</th><th>Subject</th><th>Due</th><th>Status</th></tr></thead>
+        <thead>
+            <tr>
+                <th>Assignment</th>
+                <th>Subject</th>
+                <th>Due</th>
+                <th>Status</th>
+                <th style="text-align: right;">Action</th> </tr>
+        </thead>
         <tbody>
             {% for task in tasks %}
-            <tr><td>{{ task.title }}</td><td>{{ task.subject }}</td><td>{{ task.due }}</td><td><span class="badge {{ task.class }}">{{ task.status }}</span></td></tr>
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.subject }}</td>
+                <td>{{ task.due }}</td>
+                <td><span class="badge {{ task.class }}">{{ task.status }}</span></td>
+                <td style="text-align: right;">
+                    <a href="/delete_task.html" style="color: #d1d1d1; text-decoration: none;">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </a>
+                </td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
