@@ -107,6 +107,11 @@ def edit_assignment(id):
     return render_template("edit_assignment.html", id=id)
 
 
+@app.route("/delete/<int:id>")
+def delete_item(id):
+    return redirect(url_for("assignment"))
+
+
 @app.route("/calender")
 def calender():
     return render_template("calender.html")
